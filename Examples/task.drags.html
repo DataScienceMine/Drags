@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style>
+        .object {
+            display: inline-block; width: 260px; height: 50px; margin: 10px; padding: 10px;
+            box-shadow: 2px 2px 2px #999; cursor: -webkit-grab; background-color: rgba(0, 0, 0, 0.2); transition: opacity 0.4s ease-in-out;
+            font-family: Georgia, Helvetica; font-size: 17px; color: #ecf0f1;
+        }
+        .container {
+            border: #999 1px solid; width: 300px; height: 500px; padding: 8px; font-size: 18px;
+            float: left; margin-left: 15px;
+            display: table-cell; background-color: rgba(255, 255, 255, 0.2);
+        }
+        p {
+            float: left;
+        }
+        input {
+            border: none;
+            outline: none;
+            background-color: #ecf0f1;
+            padding: 10px;
+            color: #942A57;
+            border: 0;
+            margin: 0 0 0 0;
+            display: block;
+            width: 100%;
+        }
+    </style>
+    <script src="../Source/Drags.js"></script>
+    <script type='text/javascript'>
+        window.onload = function () {
+            var drags = new Drags({printFunction: console.log, Debug: true});
+            drags.SetContainers([document.getElementById('container:1'), document.getElementById('container:2')]);
+            drags.SetDraggables([document.getElementById('object:1')]);
+
+            
+        };
+        function printFunction (data) {
+                console.log(data);
+            }
+    </script>
+
+</head>
+<body>
+    <div id="container:1" class="container">
+        <div id="object:1" class="object">
+            Task 1
+        </div>
+    </div>
+    <div id="container:2" class="container"></div>
+    <div id="container:3" class="container"></div>
+    <div id="container:4" class="container"></div>
+    <div id="app-status"></div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Drags | Not Working</title>
+    <style>
+        .object {
+            display: inline-block; background-color: #fff3cc; border: #dfbc6a 1px solid; width: 50px; height: 50px; margin: 10px; padding: 8px;
+            font-size: 18px; text-align: center; box-shadow: 2px 2px 2px #999; cursor: move;
+        }
+        #drop-zone {
+            background-color: #eee; border: #999 1px solid; width: 280px; height: 200px; padding: 8px; font-size: 18px;
+        }
+    </style>
+    <script type="text/javascript">
+        var dropedIn = false;
+        function _(id){
+            return document.getElementById(id);
+        }
+        function drag_start(event) {
+            _('app-status').innerHTML = 'Dragging the ' + event.target.getAttribute('id');
+            event.dataTransfer.dropEffect = 'move';
+            event.dataTransfer.setData('text', event.target.getAttribute('id'));
+        }
+        function drag_enter(event) {
+            _('app-status').innerHTML = 'Dragging over the ' + event.target.getAttribute('id');
+
+        }
+        function drag_leave(event) {
+            _('app-status').innerHTML = 'Leaving the ' + event.target.getAttribute('id');
+            
+        }
+        function drag_drop(event) {
+            event.preventDefault();
+            var element_id = event.dataTransfer.getData('text');
+            event.target.appendChild(_(element_id));
+            _('app-status').innerHTML = 'Dropped ' + element_id + ' Over ' + event.target.getAttribute('id');
+            //_(element_id).removeAttribute('draggable');
+            _(element_id).style.cursor = 'default';
+            dropedIn = true;
+        }
+        function drag_end(event) {
+            if(dropedIn == false){
+                _('app-status').innerHTML = 'You let in ' + event.target.getAttribute('id');
+            }
+            dropedIn = false;
+        }
+
+    </script>
+</head>
+<body>
+    <h2 id="app-status">App Status ...</h2>
+    <h1>Drop zone</h1>
+    <div id="drop-zone" ondragenter="drag_enter(event)" ondrop="drag_drop(event)" ondragover="return false" ondragleave="drag_leave(event)"></div>
+    <div id="object1" class="object" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">object 1</div>
+    <div id="object2" class="object" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">object 2</div>
+    <div id="object3" class="object" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">object 3</div>
+</body>
+</html>
